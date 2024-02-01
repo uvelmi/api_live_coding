@@ -22,7 +22,9 @@
     let tasks = [];
 
     let token = "Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k";
+	
 
+	 token = null;
     const host = "https://webdev-hw-api.vercel.app/api/v2/todos";
 
     const fetchTodosAndRender = () => {
@@ -47,27 +49,14 @@
         });
     };
 
+
 	   const renderApp = () => {
 			const appEl = document.getElementById("app");
-		const tasksHtml = tasks
-        .map((task) => {
-          return `
-          <li class="task">
-            <p class="task-text">
-              ${task.text}
-              <button data-id="${task.id}" class="button delete-button">Удалить</button>
-            </p>
-          </li>`;
-        })
-        .join("");
-	const appHtml = `<h1>Список задач</h1>
-    <ul class="tasks" id="list">
-      <!-- Список рендерится из JS -->
-		${tasksHtml}
-    </ul>
+			if (!token) {
+				const appHtml = `<h1>Список задач</h1>
 
-	 <div class="form">
-      <h3 class="form-title">Форма выхода</h3>
+				<div class="form">
+      <h3 class="form-title">Форма входа</h3>
       <div class="form-row">
        Логин
         <input type="text" id="login-input" class="input"/>
@@ -79,7 +68,33 @@
       <br />
       <button class="button" id="login-button">Войти</button>
     </div>
+	`;
+      appEl.innerHTML = appHtml;  
 
+		document.getElementById('login-button').addEventListener('click', () => {
+			token = "Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k";
+			fetchTodosAndRender();
+		})
+		return;
+}
+		const tasksHtml = tasks
+        .map((task) => {
+          return `
+          <li class="task">
+            <p class="task-text">
+              ${task.text}
+              <button data-id="${task.id}" class="button delete-button">Удалить</button>
+            </p>
+          </li>`;
+        })
+        .join("");
+
+		  const appHtml = `<h1>Список задач</h1>
+
+	 <ul class="tasks" id="list">
+				<!-- Список рендерится из JS -->
+				${tasksHtml}
+			</ul>
     <br />
     <div class="form">
       <h3 class="form-title">Форма добавления</h3>
@@ -94,10 +109,15 @@
       </div>
       <br />
       <button class="button" id="add-button">Добавить</button>
-    </div>`
+    </div>
+	`;
+      appEl.innerHTML = appHtml;  
+		
+		
+	
 
+	
 
-      appEl.innerHTML = appHtml;
 
 		const buttonElement = document.getElementById("add-button");
     const listElement = document.getElementById("list");
@@ -170,7 +190,8 @@
     });
 	};
 
-    fetchTodosAndRender();
+   //  fetchTodosAndRender();
+	renderApp();
 
     
   </script>
