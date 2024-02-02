@@ -20,14 +20,11 @@ export function renderLoginComponent({ appEl, setToken, fetchTodosAndRender }) {
       appEl.innerHTML = appHtml;
 
 		document.getElementById('login-button').addEventListener('click', () => {
-			
 			login({
 				login: 'admin',
 				password: 'admin',
 			}).then((user) => {
-				console.log(user);
-				
-				// setToken("Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k");
+					// setToken("Bearer asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k");
 				setToken(`Bearer ${user.user.token}`);
 				fetchTodosAndRender();
 		});
